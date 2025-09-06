@@ -5,8 +5,8 @@ export type Task = {
   isCompleted: boolean;
 };
 
-// base da API (pode ler de env em produção)
-const BASE_URL = "http://localhost:3000";
+// base da API (lê de env em produção)
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 
 // Buscar todas
 export async function getTasks(): Promise<Task[]> {
@@ -16,14 +16,13 @@ export async function getTasks(): Promise<Task[]> {
 }
 
 // Criar
-export async function createTask(title: string, description: string): Promise<Task> {
+export async function createTask(title: string, description: string): Promise<void> {
   const res = await fetch(`${BASE_URL}/tasks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ title, description }),
   });
   if (!res.ok) throw new Error("Erro ao criar tarefa");
-  return res.json();
 }
 
 // Atualizar status
