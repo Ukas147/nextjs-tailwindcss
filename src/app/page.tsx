@@ -37,9 +37,8 @@ export default function Home() {
     loadTasks();
   }
 
-  const pendingTasks = tasks.filter((t) => !t.isCompleted && !t.isDeleted);
-  const completedTasks = tasks.filter((t) => t.isCompleted && !t.isDeleted);
-  const deletedTasks = tasks.filter((t) => t.isDeleted);
+  const pendingTasks = tasks.filter((t) => !t.isCompleted);
+  const completedTasks = tasks.filter((t) => t.isCompleted);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4 sm:p-8">
@@ -109,14 +108,7 @@ export default function Home() {
             onDelete={handleDelete}
             color="from-green-500 to-emerald-500"
           />
-          <Section
-            title="Excluídas"
-            icon="🗑️"
-            tasks={deletedTasks}
-            onToggle={handleToggle}
-            onDelete={handleDelete}
-            color="from-gray-500 to-slate-500"
-          />
+          
         </div>
       </div>
     </main>
@@ -168,7 +160,6 @@ function Section({
                   checked={task.isCompleted}
                   onChange={() => onToggle(task.id, task.isCompleted)}
                   className="mt-1 h-4 w-4 rounded border-white/30 bg-white/20 text-purple-600 focus:ring-purple-500 focus:ring-offset-0"
-                  disabled={task.isDeleted}
                 />
                 <div className="flex-1 min-w-0">
                   <h3
@@ -183,17 +174,15 @@ function Section({
                     </p>
                   )}
                 </div>
-                {!task.isDeleted && (
-                  <button
-                    onClick={() => onDelete(task.id)}
-                    className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 transition-all p-1 rounded-lg hover:bg-red-500/20"
-                  >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clipRule="evenodd" />
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                )}
+                <button
+                  onClick={() => onDelete(task.id)}
+                  className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 transition-all p-1 rounded-lg hover:bg-red-500/20"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clipRule="evenodd" />
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                </button>
               </div>
             </div>
           ))
